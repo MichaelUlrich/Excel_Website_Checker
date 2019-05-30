@@ -8,23 +8,34 @@
 # Copyright (c) Michael Ulrich 2019
 
 import pandas as pd
+import numpy as np
+import requests
 
 def load_file(file_name):
     open_file = ""
+    print(file_name)
     try:
         open_file = pd.read_excel(file_name)
+        print(open_file)
     except:
-        print("Error Opening File...")
-    print(open_file)
-    print(open_file.values[0][1]) # returns a NumPy style array of values in xlsx file
+        print("Error Opening File...") 
+    print(open_file.values[0][0]) 
+    ping_website(open_file.values[0][0])
+
+def ping_website(url):
+   # if 'https://' not in url and 'http://' not in url:
+        # url = "https://" + url
+    response = requests.get(url)
+    print(response.status_code)
+    return response.status_code
 
 def parse_file(file_name):
-    # Blank
     print("")
+
 def write_to_file(file_name):
-    # Blank
     print("")
+
 def main():
-    file_name = "test.xlsx"
+    file_name = 'test.xlsx'
     load_file(file_name)
 main()
